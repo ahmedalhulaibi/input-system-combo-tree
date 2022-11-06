@@ -19,8 +19,8 @@ This is based on your own project requirements. Follow the [Unity Quick Start Gu
 ### Step 2 - Add Combo Tree scripts to your project
 
 Add these scripts to your project.
-1. `ComboTree.cs`
-1. `ComboTreeInput.cs`
+1. [`ComboTree.cs`](./Assets/ComboTree.cs)
+1. [`ComboTreeInput.cs`](./Assets/ComboTreeInput.cs)
 
 ### Step 3 - Create a Combo Tree asset
 
