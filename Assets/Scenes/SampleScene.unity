@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 350401507}
   - component: {fileID: 350401508}
   m_Layer: 0
-  m_Name: PlayerInput
+  m_Name: PlayerComboInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

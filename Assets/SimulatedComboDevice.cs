@@ -20,6 +20,12 @@ public struct SimulatedComboDeviceState : IInputStateTypeInfo
     [InputControl(name = "special_1_comboButton0", layout = "Button", bit = 0)]
     [InputControl(name = "special_2_comboButton1", layout = "Button", bit = 1)]
     [InputControl(name = "special_3_comboButton2", layout = "Button", bit = 2)]
+    [InputControl(name = "special_4_comboButton3", layout = "Button", bit = 3)]
+    [InputControl(name = "special_5_comboButton4", layout = "Button", bit = 4)]
+    [InputControl(name = "special_6_comboButton5", layout = "Button", bit = 5)]
+    [InputControl(name = "special_7_comboButton6", layout = "Button", bit = 6)]
+    [InputControl(name = "special_8_comboButton7", layout = "Button", bit = 7)]
+    [InputControl(name = "special_9_comboButton8", layout = "Button", bit = 8)]
     public int combos;
 }
 #if UNITY_EDITOR
@@ -33,9 +39,7 @@ public class SimulatedComboDevice : InputDevice, IInputUpdateCallbackReceiver
     #if UNITY_EDITOR
     static SimulatedComboDevice()
     {
-        // Trigger our RegisterLayout code in the editor.
-        Initialize();
-        InputSystem.AddDevice<SimulatedComboDevice>();
+        CreateDevice();
     }
 
     #endif
@@ -47,6 +51,12 @@ public class SimulatedComboDevice : InputDevice, IInputUpdateCallbackReceiver
     public ButtonControl special_1_comboButton0 { get; private set; }
     public ButtonControl special_2_comboButton1 { get; private set; }
     public ButtonControl special_3_comboButton2 { get; private set; }
+    public ButtonControl special_4_comboButton3 { get; private set; }
+    public ButtonControl special_5_comboButton4 { get; private set; }
+    public ButtonControl special_6_comboButton5 { get; private set; }
+    public ButtonControl special_7_comboButton6 { get; private set; }
+    public ButtonControl special_8_comboButton7 { get; private set; }
+    public ButtonControl special_9_comboButton8 { get; private set; }
 
     // In the player, [RuntimeInitializeOnLoadMethod] will make sure our
     // initialization code gets called during startup.
@@ -61,7 +71,7 @@ public class SimulatedComboDevice : InputDevice, IInputUpdateCallbackReceiver
         }
         var comboInputActionReferences = comboTreeData.GetGeneratedComboInputActionReferences();
 
-        comboTreeData.GetGeneratedComboInputActionReferences().Each((combo, idx) =>
+        comboInputActionReferences.Each((combo, idx) =>
         {
             Debug.Log("adding control " + combo.name + " as comboButton" + idx);
             comboInputActionIndex[combo.name] = idx;
@@ -79,9 +89,36 @@ public class SimulatedComboDevice : InputDevice, IInputUpdateCallbackReceiver
     special_1_comboButton0 = GetChildControl<ButtonControl>("special_1_comboButton0");
     special_2_comboButton1 = GetChildControl<ButtonControl>("special_2_comboButton1");
     special_3_comboButton2 = GetChildControl<ButtonControl>("special_3_comboButton2");
+    special_4_comboButton3 = GetChildControl<ButtonControl>("special_4_comboButton3");
+    special_5_comboButton4 = GetChildControl<ButtonControl>("special_5_comboButton4");
+    special_6_comboButton5 = GetChildControl<ButtonControl>("special_6_comboButton5");
+    special_7_comboButton6 = GetChildControl<ButtonControl>("special_7_comboButton6");
+    special_8_comboButton7 = GetChildControl<ButtonControl>("special_8_comboButton7");
+    special_9_comboButton8 = GetChildControl<ButtonControl>("special_9_comboButton8");
     }
 
-    public static void QueueCombo(InputActionReference inputActionReference)
+    public static SimulatedComboDevice current { get; private set; }
+
+    public override void MakeCurrent()
+    {
+        base.MakeCurrent();
+        current = this;
+        SimulatedComboDeviceMessageBus.Subscribe(this.queueCombo);
+    }
+
+    // When one of our custom devices is removed, we want to make sure that if
+    // it is the '.current' device, we null out '.current'.
+    protected override void OnRemoved()
+    {
+        base.OnRemoved();
+        if (current == this)
+        {
+            SimulatedComboDeviceMessageBus.Unsubscribe(this.queueCombo);
+            current = null;
+        }
+    }
+
+    public void queueCombo(InputActionReference inputActionReference)
     {
         inputActionEvents.Enqueue(inputActionReference.name);
     }
@@ -113,10 +150,13 @@ public class SimulatedComboDevice : InputDevice, IInputUpdateCallbackReceiver
     [MenuItem("Tools/Combo Input System/Create Device")]
     public static void CreateDevice()
     {
-            Initialize();
-            // This is the code that you would normally run at the point where
-            // you discover devices of your custom type.
+        Initialize();
+        // This is the code that you would normally run at the point where
+        // you discover devices of your custom type.
+        if (InputSystem.devices.FirstOrDefault(x => x is SimulatedComboDevice) == null)
+        {
             InputSystem.AddDevice<SimulatedComboDevice>();
+        }
     }
 
     // For completeness sake, let's also add code to remove one instance of our

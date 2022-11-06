@@ -50,14 +50,27 @@ Press the `Generate Simulated Combo Device` button. This will generate a C# file
 
 Any time you add a new sequence, make sure to press the `Generate Simulated Combo Device` button to keep the simulated device up-to-date. 
 
-### Step 7 - Add the input device to your project
+### Step 7 - Confirm the Simulated Combo Device is registered
 
+In the menu bar navigate to `Window > Analysis > Input Debugger`. You should see a device called `SimulatedComboDevice`
 
+![](./readme_assets/input_debugger.png)
+
+If you do not see the device, in the menu bar navigate to `Tools > Combo Input System > Create Device`.
+
+### Step 8 - Add a ComboTreeInput component to an object in the scene
+
+The `ComboTreeInput` component tracks all relevant input action events defined in the `ComboTree` asset. It detects when a sequence has been input and triggers the custom sequence input action. 
+
+In this project you'll find an example of this here [`Assets/PlayerComboInput.prefab`](./Assets/PlayerComboInput.prefab)
+
+### Done!
+
+You should now have everything in place. Take a look at the sample scene in this project for a basic example of how to set this up.
 
 ## Known Issues and Limitations
 
-The `Update Input Action Map` button will not remove stale/old input actions that no longer exist in the `ComboTree` asset. If you remove a sequence from your `ComboTree` asset you may have to remove it manually from the input action asset. Keeping it shouldn't affect any other sequences though.
-
-The generated device only works for one player at the moment.
-
-This is strictly an Input System extension and does not consider animations or animation state.
+1. The `Update Input Action Map` button will not remove stale/old input actions that no longer exist in the `ComboTree` asset. If you remove a sequence from your `ComboTree` asset you may have to remove it manually from the input action asset. Keeping it shouldn't affect any other sequences though.
+1. The generated device only works for one player at the moment.
+1. This is strictly an Input System extension and does not consider animations or animation state.
+1. The `ComboTreeInput` script does not handle sequences of sequences at this time. In theory it can be modified to do so.

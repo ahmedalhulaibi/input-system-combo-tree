@@ -199,7 +199,27 @@ namespace ComboTreeInputSystem
         }
     }
 
+    public static class SimulatedComboDeviceMessageBus
+    {
+        public delegate void ComboTriggerDelegate(InputActionReference inputActionReference);
 
+        private static ComboTriggerDelegate comboTriggerDelegate;
+
+        public static void TriggerCombo(InputActionReference inputActionReference)
+        {
+            comboTriggerDelegate(inputActionReference);
+        }
+
+        public static void Subscribe(ComboTriggerDelegate triggerDelegate)
+        {
+            comboTriggerDelegate -= triggerDelegate;
+            comboTriggerDelegate += triggerDelegate;
+        }
+        public static void Unsubscribe(ComboTriggerDelegate triggerDelegate)
+        {
+            comboTriggerDelegate -= triggerDelegate;
+        }
+    }
 #if UNITY_EDITOR
     [CustomEditor(typeof(ComboTree))]
     public class SimulatedComboDeviceScriptGenerator : Editor
@@ -267,9 +287,7 @@ public class SimulatedComboDevice : InputDevice, IInputUpdateCallbackReceiver
     #if UNITY_EDITOR
     static SimulatedComboDevice()
     {{
-        // Trigger our RegisterLayout code in the editor.
-        Initialize();
-        InputSystem.AddDevice<SimulatedComboDevice>();
+        CreateDevice();
     }}
 
     #endif
@@ -292,7 +310,7 @@ public class SimulatedComboDevice : InputDevice, IInputUpdateCallbackReceiver
         }}
         var comboInputActionReferences = comboTreeData.GetGeneratedComboInputActionReferences();
 
-        comboTreeData.GetGeneratedComboInputActionReferences().Each((combo, idx) =>
+        comboInputActionReferences.Each((combo, idx) =>
         {{
             Debug.Log(""adding control "" + combo.name + "" as comboButton"" + idx);
             comboInputActionIndex[combo.name] = idx;
@@ -309,7 +327,28 @@ public class SimulatedComboDevice : InputDevice, IInputUpdateCallbackReceiver
         {finishSetupButtonControlPropertyAssignment}
     }}
 
-    public static void QueueCombo(InputActionReference inputActionReference)
+    public static SimulatedComboDevice current {{ get; private set; }}
+
+    public override void MakeCurrent()
+    {{
+        base.MakeCurrent();
+        current = this;
+        SimulatedComboDeviceMessageBus.Subscribe(this.queueCombo);
+    }}
+
+    // When one of our custom devices is removed, we want to make sure that if
+    // it is the '.current' device, we null out '.current'.
+    protected override void OnRemoved()
+    {{
+        base.OnRemoved();
+        if (current == this)
+        {{
+            SimulatedComboDeviceMessageBus.Unsubscribe(this.queueCombo);
+            current = null;
+        }}
+    }}
+
+    public void queueCombo(InputActionReference inputActionReference)
     {{
         inputActionEvents.Enqueue(inputActionReference.name);
     }}
@@ -341,10 +380,13 @@ public class SimulatedComboDevice : InputDevice, IInputUpdateCallbackReceiver
     [MenuItem(""Tools/Combo Input System/Create Device"")]
     public static void CreateDevice()
     {{
-            Initialize();
-            // This is the code that you would normally run at the point where
-            // you discover devices of your custom type.
+        Initialize();
+        // This is the code that you would normally run at the point where
+        // you discover devices of your custom type.
+        if (InputSystem.devices.FirstOrDefault(x => x is SimulatedComboDevice) == null)
+        {{
             InputSystem.AddDevice<SimulatedComboDevice>();
+        }}
     }}
 
     // For completeness sake, let's also add code to remove one instance of our

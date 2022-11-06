@@ -44,6 +44,15 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shield"",
+                    ""type"": ""Button"",
+                    ""id"": ""80de1393-96bb-4c21-a564-37d19a549bfd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,14 +77,107 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Heavy Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7954ab40-3422-48f1-89cd-1d58772b71e9"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shield"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
         {
             ""name"": ""Combos"",
             ""id"": ""c090f87a-0f30-4d1f-9d1b-6720bd6d73cb"",
-            ""actions"": [],
-            ""bindings"": []
+            ""actions"": [
+                {
+                    ""name"": ""special_1"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5713819-2d8c-44c4-912c-0816db52e7ca"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""special_2"",
+                    ""type"": ""Button"",
+                    ""id"": ""abf89dce-8bad-4aff-bdb3-6b6983b80c7c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""special_3"",
+                    ""type"": ""Button"",
+                    ""id"": ""6fb30f5d-4c06-4c3f-b259-c32e5186f1f5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""special_4"",
+                    ""type"": ""Button"",
+                    ""id"": ""5b248f18-de2b-4e37-8d2b-e1e695c1e092"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a8ae3688-fd83-4f27-921e-376c1c1e6dd1"",
+                    ""path"": ""<SimulatedComboDevice>/special_1_comboButton0"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""special_1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5ddd534-3a9f-4f89-b6a9-ba1cbb2d5148"",
+                    ""path"": ""<SimulatedComboDevice>/special_2_comboButton1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""special_2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c684769-a04b-4cef-b95e-9efd6f7d3116"",
+                    ""path"": ""<SimulatedComboDevice>/special_3_comboButton2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""special_3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7efed2e-0de7-404b-b91d-3df01172856e"",
+                    ""path"": ""<SimulatedComboDevice>/special_4_comboButton3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""special_4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -84,8 +186,13 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_LightAttack = m_Player.FindAction("Light Attack", throwIfNotFound: true);
         m_Player_HeavyAttack = m_Player.FindAction("Heavy Attack", throwIfNotFound: true);
+        m_Player_Shield = m_Player.FindAction("Shield", throwIfNotFound: true);
         // Combos
         m_Combos = asset.FindActionMap("Combos", throwIfNotFound: true);
+        m_Combos_special_1 = m_Combos.FindAction("special_1", throwIfNotFound: true);
+        m_Combos_special_2 = m_Combos.FindAction("special_2", throwIfNotFound: true);
+        m_Combos_special_3 = m_Combos.FindAction("special_3", throwIfNotFound: true);
+        m_Combos_special_4 = m_Combos.FindAction("special_4", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -147,12 +254,14 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_LightAttack;
     private readonly InputAction m_Player_HeavyAttack;
+    private readonly InputAction m_Player_Shield;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
         public PlayerActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @LightAttack => m_Wrapper.m_Player_LightAttack;
         public InputAction @HeavyAttack => m_Wrapper.m_Player_HeavyAttack;
+        public InputAction @Shield => m_Wrapper.m_Player_Shield;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -168,6 +277,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @HeavyAttack.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyAttack;
                 @HeavyAttack.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyAttack;
                 @HeavyAttack.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHeavyAttack;
+                @Shield.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShield;
+                @Shield.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShield;
+                @Shield.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShield;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -178,6 +290,9 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
                 @HeavyAttack.started += instance.OnHeavyAttack;
                 @HeavyAttack.performed += instance.OnHeavyAttack;
                 @HeavyAttack.canceled += instance.OnHeavyAttack;
+                @Shield.started += instance.OnShield;
+                @Shield.performed += instance.OnShield;
+                @Shield.canceled += instance.OnShield;
             }
         }
     }
@@ -186,10 +301,18 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     // Combos
     private readonly InputActionMap m_Combos;
     private ICombosActions m_CombosActionsCallbackInterface;
+    private readonly InputAction m_Combos_special_1;
+    private readonly InputAction m_Combos_special_2;
+    private readonly InputAction m_Combos_special_3;
+    private readonly InputAction m_Combos_special_4;
     public struct CombosActions
     {
         private @InputActions m_Wrapper;
         public CombosActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @special_1 => m_Wrapper.m_Combos_special_1;
+        public InputAction @special_2 => m_Wrapper.m_Combos_special_2;
+        public InputAction @special_3 => m_Wrapper.m_Combos_special_3;
+        public InputAction @special_4 => m_Wrapper.m_Combos_special_4;
         public InputActionMap Get() { return m_Wrapper.m_Combos; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -199,10 +322,34 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_CombosActionsCallbackInterface != null)
             {
+                @special_1.started -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_1;
+                @special_1.performed -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_1;
+                @special_1.canceled -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_1;
+                @special_2.started -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_2;
+                @special_2.performed -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_2;
+                @special_2.canceled -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_2;
+                @special_3.started -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_3;
+                @special_3.performed -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_3;
+                @special_3.canceled -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_3;
+                @special_4.started -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_4;
+                @special_4.performed -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_4;
+                @special_4.canceled -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_4;
             }
             m_Wrapper.m_CombosActionsCallbackInterface = instance;
             if (instance != null)
             {
+                @special_1.started += instance.OnSpecial_1;
+                @special_1.performed += instance.OnSpecial_1;
+                @special_1.canceled += instance.OnSpecial_1;
+                @special_2.started += instance.OnSpecial_2;
+                @special_2.performed += instance.OnSpecial_2;
+                @special_2.canceled += instance.OnSpecial_2;
+                @special_3.started += instance.OnSpecial_3;
+                @special_3.performed += instance.OnSpecial_3;
+                @special_3.canceled += instance.OnSpecial_3;
+                @special_4.started += instance.OnSpecial_4;
+                @special_4.performed += instance.OnSpecial_4;
+                @special_4.canceled += instance.OnSpecial_4;
             }
         }
     }
@@ -211,8 +358,13 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     {
         void OnLightAttack(InputAction.CallbackContext context);
         void OnHeavyAttack(InputAction.CallbackContext context);
+        void OnShield(InputAction.CallbackContext context);
     }
     public interface ICombosActions
     {
+        void OnSpecial_1(InputAction.CallbackContext context);
+        void OnSpecial_2(InputAction.CallbackContext context);
+        void OnSpecial_3(InputAction.CallbackContext context);
+        void OnSpecial_4(InputAction.CallbackContext context);
     }
 }

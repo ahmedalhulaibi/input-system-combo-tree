@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Shield",
+                    "type": "Button",
+                    "id": "80de1393-96bb-4c21-a564-37d19a549bfd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -46,14 +55,107 @@
                     "action": "Heavy Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7954ab40-3422-48f1-89cd-1d58772b71e9",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shield",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
         {
             "name": "Combos",
             "id": "c090f87a-0f30-4d1f-9d1b-6720bd6d73cb",
-            "actions": [],
-            "bindings": []
+            "actions": [
+                {
+                    "name": "special_1",
+                    "type": "Button",
+                    "id": "f5713819-2d8c-44c4-912c-0816db52e7ca",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "special_2",
+                    "type": "Button",
+                    "id": "abf89dce-8bad-4aff-bdb3-6b6983b80c7c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "special_3",
+                    "type": "Button",
+                    "id": "6fb30f5d-4c06-4c3f-b259-c32e5186f1f5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "special_4",
+                    "type": "Button",
+                    "id": "5b248f18-de2b-4e37-8d2b-e1e695c1e092",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a8ae3688-fd83-4f27-921e-376c1c1e6dd1",
+                    "path": "<SimulatedComboDevice>/special_1_comboButton0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "special_1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5ddd534-3a9f-4f89-b6a9-ba1cbb2d5148",
+                    "path": "<SimulatedComboDevice>/special_2_comboButton1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "special_2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c684769-a04b-4cef-b95e-9efd6f7d3116",
+                    "path": "<SimulatedComboDevice>/special_3_comboButton2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "special_3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d7efed2e-0de7-404b-b91d-3df01172856e",
+                    "path": "<SimulatedComboDevice>/special_4_comboButton3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "special_4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

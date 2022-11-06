@@ -106,7 +106,7 @@ namespace ComboTreeInputSystem
                     Debug.Log("combo detected! " + maybeCombo.data.name);
                     //var del = maybeCombo.data.action.;
                     // TODO: combo detected
-                    SimulatedComboDevice.QueueCombo(maybeCombo.data);
+                    SimulatedComboDeviceMessageBus.TriggerCombo(maybeCombo.data);
                     ResetComboTracker();
                     recognized = true;
                 }
