@@ -11,6 +11,7 @@ using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Utilities;
+using ComboTreeInputSystem;
 
 public struct SimulatedComboDeviceState : IInputStateTypeInfo
 {
@@ -34,6 +35,7 @@ public class SimulatedComboDevice : InputDevice, IInputUpdateCallbackReceiver
     {
         // Trigger our RegisterLayout code in the editor.
         Initialize();
+        InputSystem.AddDevice<SimulatedComboDevice>();
     }
 
     #endif
