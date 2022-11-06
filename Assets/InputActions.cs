@@ -74,70 +74,8 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         {
             ""name"": ""Combos"",
             ""id"": ""c090f87a-0f30-4d1f-9d1b-6720bd6d73cb"",
-            ""actions"": [
-                {
-                    ""name"": ""special_1"",
-                    ""type"": ""Button"",
-                    ""id"": ""51634270-ad54-44b3-add5-6f1a367a1ae6"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""special_2"",
-                    ""type"": ""Button"",
-                    ""id"": ""95fc8c26-7ebd-45c4-962c-b894c3170ca4"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""special_3"",
-                    ""type"": ""Button"",
-                    ""id"": ""2948db6d-8b82-4805-b905-4e79895f1feb"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""caf8f7a5-0431-446d-a15a-d20f60160221"",
-                    ""path"": ""<SimulatedComboDevice>/special_1_comboButton0"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""special_1"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""88a9ec19-a8d6-48c5-8a63-46454b238f8d"",
-                    ""path"": ""<SimulatedComboDevice>/special_2_comboButton1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""special_2"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8635ae8e-662f-43d6-b97e-84b45f8b7ddb"",
-                    ""path"": ""<SimulatedComboDevice>/special_3_comboButton2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""special_3"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
+            ""actions"": [],
+            ""bindings"": []
         }
     ],
     ""controlSchemes"": []
@@ -148,9 +86,6 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         m_Player_HeavyAttack = m_Player.FindAction("Heavy Attack", throwIfNotFound: true);
         // Combos
         m_Combos = asset.FindActionMap("Combos", throwIfNotFound: true);
-        m_Combos_special_1 = m_Combos.FindAction("special_1", throwIfNotFound: true);
-        m_Combos_special_2 = m_Combos.FindAction("special_2", throwIfNotFound: true);
-        m_Combos_special_3 = m_Combos.FindAction("special_3", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,16 +186,10 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     // Combos
     private readonly InputActionMap m_Combos;
     private ICombosActions m_CombosActionsCallbackInterface;
-    private readonly InputAction m_Combos_special_1;
-    private readonly InputAction m_Combos_special_2;
-    private readonly InputAction m_Combos_special_3;
     public struct CombosActions
     {
         private @InputActions m_Wrapper;
         public CombosActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @special_1 => m_Wrapper.m_Combos_special_1;
-        public InputAction @special_2 => m_Wrapper.m_Combos_special_2;
-        public InputAction @special_3 => m_Wrapper.m_Combos_special_3;
         public InputActionMap Get() { return m_Wrapper.m_Combos; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -270,28 +199,10 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_CombosActionsCallbackInterface != null)
             {
-                @special_1.started -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_1;
-                @special_1.performed -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_1;
-                @special_1.canceled -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_1;
-                @special_2.started -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_2;
-                @special_2.performed -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_2;
-                @special_2.canceled -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_2;
-                @special_3.started -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_3;
-                @special_3.performed -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_3;
-                @special_3.canceled -= m_Wrapper.m_CombosActionsCallbackInterface.OnSpecial_3;
             }
             m_Wrapper.m_CombosActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @special_1.started += instance.OnSpecial_1;
-                @special_1.performed += instance.OnSpecial_1;
-                @special_1.canceled += instance.OnSpecial_1;
-                @special_2.started += instance.OnSpecial_2;
-                @special_2.performed += instance.OnSpecial_2;
-                @special_2.canceled += instance.OnSpecial_2;
-                @special_3.started += instance.OnSpecial_3;
-                @special_3.performed += instance.OnSpecial_3;
-                @special_3.canceled += instance.OnSpecial_3;
             }
         }
     }
@@ -303,8 +214,5 @@ public partial class @InputActions : IInputActionCollection2, IDisposable
     }
     public interface ICombosActions
     {
-        void OnSpecial_1(InputAction.CallbackContext context);
-        void OnSpecial_2(InputAction.CallbackContext context);
-        void OnSpecial_3(InputAction.CallbackContext context);
     }
 }

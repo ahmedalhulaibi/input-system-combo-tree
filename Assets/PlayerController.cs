@@ -18,9 +18,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnLightAttack()
     {
+        Debug.Log("OnLightAttack");
     }
     public void OnHeayAttack()
     {
+        Debug.Log("OnHeayAttack");
     }
     public void OnSpecial_1()
     {
@@ -29,5 +31,9 @@ public class PlayerController : MonoBehaviour
     public void OnSpecial_2()
     {
         Debug.Log("OnSpecial_2");
+    }
+    public void OnSpecial_3()
+    {
+        Debug.Log("OnSpecial_3");
     }
 }

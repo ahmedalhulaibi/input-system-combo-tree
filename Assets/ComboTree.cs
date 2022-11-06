@@ -35,7 +35,7 @@ public class ComboTree : ScriptableObject
         {
             if (!generatedComboInputActionReferences.TryGetValue(sequence.name, out var val))
             {
-                Debug.LogWarning("sequence " + sequence.name + " does not have an input action. Make sure to generate simulated combo device");
+                Debug.LogWarning("sequence " + sequence.name + " does not have an input action. Make sure to click 'Update Input Action Map' and 'Generate Simulated Combo Device' whenever you add a new combo sequence");
             }
         }
     }
@@ -54,9 +54,9 @@ public class ComboTree : ScriptableObject
             combosInputActionMap = inputActionAsset.AddActionMap(COMBO_ACTION_MAP_NAME);
         }
 
-        foreach (var sequence in sequences)
+        sequences.Each((sequence, idx) =>
         {
-            using(var inputAction = combosInputActionMap.FindAction(sequence.name))
+            using (var inputAction = combosInputActionMap.FindAction(sequence.name))
             {
                 if (inputAction == null)
                 {
@@ -71,15 +71,17 @@ public class ComboTree : ScriptableObject
                             Debug.Log("failed to create input action " + sequence.name);
                             return;
                         }
+                        newInputAction.AddBinding($"<SimulatedComboDevice>/{sequence.name}_comboButton{idx}");
                     }
                     generatedComboInputActionReferences[sequence.name] = InputActionReference.Create(newInputAction);
-                } else
+                }
+                else
                 {
                     Debug.Log("Found input action " + sequence.name);
                     generatedComboInputActionReferences[sequence.name] = InputActionReference.Create(inputAction);
                 }
             }
-        }
+        });
     }
 
     public void Initialize()

@@ -52,70 +52,8 @@
         {
             "name": "Combos",
             "id": "c090f87a-0f30-4d1f-9d1b-6720bd6d73cb",
-            "actions": [
-                {
-                    "name": "special_1",
-                    "type": "Button",
-                    "id": "51634270-ad54-44b3-add5-6f1a367a1ae6",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "special_2",
-                    "type": "Button",
-                    "id": "95fc8c26-7ebd-45c4-962c-b894c3170ca4",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "special_3",
-                    "type": "Button",
-                    "id": "2948db6d-8b82-4805-b905-4e79895f1feb",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "caf8f7a5-0431-446d-a15a-d20f60160221",
-                    "path": "<SimulatedComboDevice>/special_1_comboButton0",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "special_1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "88a9ec19-a8d6-48c5-8a63-46454b238f8d",
-                    "path": "<SimulatedComboDevice>/special_2_comboButton1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "special_2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8635ae8e-662f-43d6-b97e-84b45f8b7ddb",
-                    "path": "<SimulatedComboDevice>/special_3_comboButton2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "special_3",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": []
