@@ -64,9 +64,10 @@ namespace ComboTreeInputSystem
                 {
                     currentComboTree = comboTrees[inputActionReference];
                 } catch(KeyNotFoundException)
-                { }
-                ResetTimers();
-                ResetComboTracker();
+                {
+                    ResetTimers();
+                    ResetComboTracker();
+                }
 
                 return;
             }
