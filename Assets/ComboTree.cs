@@ -194,26 +194,5 @@ public class ComboTree : ScriptableObject
                     return n;
             return null;
         }
-
-        public void Traverse(NTree<T> node, Action<T> visitor)
-        {
-            visitor(node.data);
-            foreach (NTree<T> kid in node.children)
-                Traverse(kid, visitor);
-        }
-
-        public void Traverse(NTree<T> node, Action<NTree<T>> visitor)
-        {
-            visitor(node);
-            foreach (NTree<T> kid in node.children)
-                Traverse(kid, visitor);
-        }
-
-        public void Traverse(NTree<T> node, Action<NTree<T>, T> visitor)
-        {
-            visitor(node, node.data);
-            foreach (NTree<T> kid in node.children)
-                Traverse(kid, visitor);
-        }
     }
 }
