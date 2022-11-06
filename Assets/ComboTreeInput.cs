@@ -60,8 +60,13 @@ namespace ComboTreeInputSystem
             Debug.Log("HandleAction " + inputActionReference.name);
             if (currentComboTree == null)
             {
-                currentComboTree = comboTrees[inputActionReference];
+                try
+                {
+                    currentComboTree = comboTrees[inputActionReference];
+                } catch(KeyNotFoundException)
+                { }
                 ResetTimers();
+                ResetComboTracker();
 
                 return;
             }
